@@ -1,0 +1,41 @@
+
+type User @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String! @isUnique
+  password: String!
+}
+
+type Student @model {
+  id: ID! @isUnique
+  chineseName: String!
+  englishName: String
+  pinyinName: String
+  dateOfBirth: DateTime
+  group: Group @relation(name: "StudentInGroup")
+  points: [Point!]! @relation(name: "PointOnStudent")
+  gender: Gender
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Group @model {
+  id: ID! @isUnique
+  name: String!
+  students: [Student!]! @relation(name: "StudentInGroup")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Point @model {
+  id: ID! @isUnique
+  student: Student! @relation(name: "PointOnStudent")
+  createdAt: DateTime!
+  value: Int! @defaultValue(value: 1)
+}
+
+enum Gender {
+  M
+  F
+}
