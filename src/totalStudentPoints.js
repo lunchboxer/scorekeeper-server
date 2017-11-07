@@ -38,5 +38,5 @@ export default async event => {
   const positive = counts.positive.count
   const negative = counts.negative.count
   const total = positive - negative
-  return { data: { total } }
+  return { data: { total, studentId } }
 }
