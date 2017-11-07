@@ -9,33 +9,48 @@ type User @model {
 
 type Student @model {
   id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   chineseName: String!
   englishName: String
   pinyinName: String
   dateOfBirth: DateTime
+  gender: Gender
   group: Group @relation(name: "StudentInGroup")
   points: [Point!]! @relation(name: "PointOnStudent")
-  gender: Gender
-  createdAt: DateTime!
-  updatedAt: DateTime!
+}
+
+# Used in Student type
+enum Gender {
+  M
+  F
 }
 
 type Group @model {
   id: ID! @isUnique
-  name: String!
-  students: [Student!]! @relation(name: "StudentInGroup")
   createdAt: DateTime!
   updatedAt: DateTime!
+  name: String!
+  students: [Student!]! @relation(name: "StudentInGroup")
+  classSessions: [ClassSession!]! @relation(name: "ClassSessionOnGroup")
+
 }
 
 type Point @model {
   id: ID! @isUnique
-  student: Student! @relation(name: "PointOnStudent")
   createdAt: DateTime!
   value: Int! @defaultValue(value: 1)
+  student: Student! @relation(name: "PointOnStudent")
+  classSession: ClassSession @relation(name: "PointOnClassSession")
 }
 
-enum Gender {
-  M
-  F
+type ClassSession @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  startsAt: DateTime!
+  endsAt: DateTime!
+  groups: [Group!]! @relation(name: "ClassSessionOnGroup")
+  points: [Point!]! @relation(name: "PointOnClassSession")
+
 }
