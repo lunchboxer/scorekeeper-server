@@ -55,6 +55,12 @@ functions:
     handler:
       code: src/totalStudentPoints.js
 
+  validateClassSession:
+    type: operationBefore
+    operation: ClassSession.create
+    handler:
+      code: src/validateClassSession.js
+
 # Model/Relation permissions are used to limit the API access
 # To take the burden of thinking about those while development, we
 # preconfigured the wildcard ("*") permission that allows everything
