@@ -1,8 +1,0 @@
-type totalGroupPointsPayload {
-  total: Int!
-  groupId: String!
-}
-
-extend type Query {
-  totalGroupPoints(groupId: String!): totalGroupPointsPayload
-}

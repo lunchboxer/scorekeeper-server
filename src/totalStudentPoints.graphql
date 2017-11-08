@@ -1,8 +1,0 @@
-type totalStudentPointsPayload {
-  total: Int!
-  studentId: String!
-}
-
-extend type Query {
-  totalStudentPoints(studentId: String!): totalStudentPointsPayload
-}

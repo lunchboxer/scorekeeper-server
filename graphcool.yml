@@ -49,18 +49,6 @@ functions:
     handler:
       code: src/validateStudent.ts
 
-  totalStudentPoints:
-    type: resolver
-    schema: src/totalStudentPoints.graphql
-    handler:
-      code: src/totalStudentPoints.js
-
-  totalGroupPoints:
-    type: resolver
-    schema: src/totalGroupPoints.graphql
-    handler:
-      code: src/totalGroupPoints.js
-
   validateClassSession:
     type: operationBefore
     operation: ClassSession.create
