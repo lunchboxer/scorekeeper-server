@@ -27,6 +27,7 @@ enum Gender {
 }
 
 type Group @model {
+  # a group of students attending class together
   id: ID! @isUnique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -37,6 +38,7 @@ type Group @model {
 }
 
 type Point @model {
+  # points awarded to students during the lesson, can be positive or negative
   id: ID! @isUnique
   createdAt: DateTime!
   value: Int! @defaultValue(value: 1)
