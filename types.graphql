@@ -1,6 +1,6 @@
-
 type User @model {
   id: ID! @isUnique
+  name: String
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @isUnique
@@ -34,7 +34,6 @@ type Group @model {
   name: String!
   students: [Student!]! @relation(name: "StudentInGroup")
   classSessions: [ClassSession!]! @relation(name: "ClassSessionOnGroup")
-
 }
 
 type Point @model {
@@ -54,5 +53,4 @@ type ClassSession @model {
   endsAt: DateTime!
   groups: [Group!]! @relation(name: "ClassSessionOnGroup")
   points: [Point!]! @relation(name: "PointOnClassSession")
-
 }
