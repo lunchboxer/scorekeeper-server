@@ -1,6 +1,6 @@
 type User @model {
   id: ID! @isUnique
-  name: String
+  name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @isUnique
