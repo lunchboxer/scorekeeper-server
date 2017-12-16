@@ -16,7 +16,7 @@ type Student @model {
   pinyinName: String
   dateOfBirth: DateTime
   gender: Gender
-  group: Group @relation(name: "StudentInGroup")
+  group: Group! @relation(name: "StudentInGroup")
   points: [Point!]! @relation(name: "PointOnStudent")
 }
 
