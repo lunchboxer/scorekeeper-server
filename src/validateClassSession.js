@@ -1,13 +1,7 @@
-import {
-  fromEvent
-} from 'graphcool-lib'
+import { fromEvent } from 'graphcool-lib'
 
 export default async event => {
-  let {
-    startsAt,
-    endsAt,
-    id
-  } = event.data
+  let { startsAt, endsAt, id } = event.data
 
   // so far the only validation is for times, no times = move on
   if (!startsAt && !endsAt) {
@@ -35,7 +29,10 @@ export default async event => {
       const getTimesVariables = {
         id
       }
-      const getTimesResponse = await api.request(getTimesQuery, getTimesVariables)
+      const getTimesResponse = await api.request(
+        getTimesQuery,
+        getTimesVariables
+      )
       // this is before the mutation so keep the new value
       if (!startsAt) {
         startsAt = getTimesResponse.ClassSession.startsAt
@@ -48,7 +45,7 @@ export default async event => {
   // now that we have both times let's make sure the order is good
   const startTime = new Date(startsAt)
   const endTime = new Date(endsAt)
-  if (endTime - startTime <= 0) {
+  if (endTime <= startTime) {
     return {
       error: 'Start time must be before end time.'
     }
@@ -69,18 +66,12 @@ export default async event => {
               endsAt_gte: $startsAt
             }, {
               id_not: $id
-            }],
+            }]
+          },{
             AND: [{
               startsAt_lte: $endsAt
             }, {
               endsAt_gte: $endsAt
-            }, {
-              id_not: $id
-            }],
-            AND: [{
-              startsAt_gte: $startsAt
-            }, {
-              endsAt_lte: $endsAt
             }, {
               id_not: $id
             }]
@@ -98,13 +89,16 @@ export default async event => {
     id
   }
   const response = await api.request(query, variables)
+
   const conflicts = response.allClassSessions
   // if there is a conflict with another session, error
   if (conflicts.length > 0) {
     const conflictStart = new Date(conflicts[0].startsAt)
     const conflictEnd = new Date(conflicts[0].endsAt)
     return {
-      error: `Scheduling conflict with existing class session ${conflicts[0].id}, ${conflictStart.toString()} to ${conflictEnd.toString()}`
+      error: `Scheduling conflict with existing class session ${
+        conflicts[0].id
+      }, ${conflictStart.toString()} to ${conflictEnd.toString()}`
     }
   }
 
