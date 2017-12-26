@@ -18,6 +18,7 @@ type Student @model {
   gender: Gender
   group: Group! @relation(name: "StudentInGroup")
   points: [Point!]! @relation(name: "PointOnStudent")
+  attendances: [Attendance!]! @relation(name: "AttendanceOnStudent")
 }
 
 # Used in Student type
@@ -53,6 +54,7 @@ type ClassSession @model {
   endsAt: DateTime!
   groups: [Group!]! @relation(name: "ClassSessionOnGroup")
   points: [Point!]! @relation(name: "PointOnClassSession")
+  attendances: [Attendance!]! @relation(name: "AttendanceOnClassSession")
   stage: Stage @defaultValue(value: Innactive)
 }
 
@@ -62,4 +64,21 @@ enum Stage {
   Active # preclass, time for attendance
   Started # class time
   Ended # teacher has ended the class
+}
+
+type Attendance @model {
+  classSession: ClassSession! @relation(name: "AttendanceOnClassSession")
+  createdAt: DateTime!
+  id: ID! @isUnique
+  student: Student! @relation(name: "AttendanceOnStudent")
+  updatedAt: DateTime!
+  status: AttendaceStatus!
+}
+
+# used in Attendance
+enum AttendaceStatus {
+  LeftEarly
+  Present
+  Late
+  Absent
 }
