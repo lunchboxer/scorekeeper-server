@@ -53,4 +53,13 @@ type ClassSession @model {
   endsAt: DateTime!
   groups: [Group!]! @relation(name: "ClassSessionOnGroup")
   points: [Point!]! @relation(name: "PointOnClassSession")
+  stage: Stage @defaultValue(value: Innactive)
+}
+
+# used in ClassSession
+enum Stage {
+  Innactive # scheduled, but teacher hasn't viewed
+  Active # preclass, time for attendance
+  Started # class time
+  Ended # teacher has ended the class
 }
