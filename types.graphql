@@ -55,7 +55,7 @@ type ClassSession @model {
   groups: [Group!]! @relation(name: "ClassSessionOnGroup")
   points: [Point!]! @relation(name: "PointOnClassSession")
   attendances: [Attendance!]! @relation(name: "AttendanceOnClassSession")
-  stage: Stage! @defaultValue(value: Inactive) @migrationValue(value: Inactive)
+  stage: Stage! @defaultValue(value: Inactive)
 }
 
 # used in ClassSession
