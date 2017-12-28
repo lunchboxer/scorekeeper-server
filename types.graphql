@@ -72,11 +72,11 @@ type Attendance @model {
   id: ID! @isUnique
   student: Student! @relation(name: "AttendanceOnStudent")
   updatedAt: DateTime!
-  status: AttendaceStatus!
+  status: AttendanceStatus!
 }
 
 # used in Attendance
-enum AttendaceStatus {
+enum AttendanceStatus {
   LeftEarly
   Present
   Late
