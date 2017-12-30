@@ -17,8 +17,6 @@ types: ./types.graphql
 
 
 functions:
-
-# added by email-password template: (please uncomment)
   signup:
     type: resolver
     schema: src/email-password/signup.graphql
@@ -60,6 +58,12 @@ functions:
     operation: ClassSession.update
     handler:
       code: src/validateClassSession.js
+
+  markOthersAbsent:
+    type: resolver
+    schema: src/markOthersAbsent.graphql
+    handler:
+      code: src/markOthersAbsent.js
 
 # Model/Relation permissions are used to limit the API access
 # To take the burden of thinking about those while development, we

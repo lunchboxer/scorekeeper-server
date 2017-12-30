@@ -1,0 +1,7 @@
+type markOthersAbsentPayload {
+  count: Int
+}
+
+extend type Mutation {
+  markOthersAbsent(sessionid: ID!): markOthersAbsentPayload
+}
