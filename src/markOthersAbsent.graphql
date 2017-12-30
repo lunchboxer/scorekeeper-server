@@ -1,7 +1,7 @@
 type markOthersAbsentPayload {
-  count: Int
+  changed: Int
 }
 
 extend type Mutation {
-  markOthersAbsent(sessionid: ID!): markOthersAbsentPayload
+  markOthersAbsent(sessionId: ID!): markOthersAbsentPayload
 }

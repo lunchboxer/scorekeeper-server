@@ -6,18 +6,18 @@ export default async event => {
   try {
     const graphcool = fromEvent(event)
     const api = graphcool.api('simple/v1')
-    const { sessionid } = event.data
+    const { sessionId } = event.data
 
-    const res = await getOthers(api, sessionid)
+    const res = await getOthers(api, sessionId)
 
     // students will be organized into arrays by group, so flattened
     const students = [].concat(
       ...res.ClassSession.groups.map(group => group.students)
     )
     students.forEach(student => {
-      markAbsent(api, student, sessionid)
+      markAbsent(api, student, sessionId)
     })
-    return { data: { count: students.length } }
+    return { data: { changed: students.length } }
   } catch (e) {
     console.log(e)
     return {
@@ -25,7 +25,7 @@ export default async event => {
     }
   }
 }
-const markAbsent = async (api, student, sessionid) => {
+const markAbsent = async (api, student, sessionId) => {
   const query = `
   mutation AddAttendanceMutation(
     $student: ID!
@@ -42,23 +42,23 @@ const markAbsent = async (api, student, sessionid) => {
   `
   const variables = {
     student: student.id,
-    session: sessionid
+    session: sessionId
   }
   return api.request(query, variables)
 }
-const getOthers = async (api, sessionid) => {
+const getOthers = async (api, sessionId) => {
   const query = `
-  query StudentsNotMarkedQuery($sessionid: ID!) {
-    ClassSession(id: $sessionid) {
+  query StudentsNotMarkedQuery($sessionId: ID!) {
+    ClassSession(id: $sessionId) {
       groups {
-        students(filter: {attendances_none: {classSession: {id: $sessionid}}}) {
+        students(filter: {attendances_none: {classSession: {id: $sessionId}}}) {
           id
         }
       }
     }
   }`
   const variables = {
-    sessionid
+    sessionId
   }
 
   return api.request(query, variables)
