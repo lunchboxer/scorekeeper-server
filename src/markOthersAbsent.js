@@ -1,7 +1,5 @@
 import { fromEvent } from 'graphcool-lib'
 
-// find students with no record for this class session yet.
-
 export default async event => {
   try {
     const graphcool = fromEvent(event)
@@ -46,6 +44,8 @@ const markAbsent = async (api, student, sessionId) => {
   }
   return api.request(query, variables)
 }
+
+// find students for this classSession with no attendance records yet
 const getOthers = async (api, sessionId) => {
   const query = `
   query StudentsNotMarkedQuery($sessionId: ID!) {
