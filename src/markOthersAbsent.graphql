@@ -1,5 +1,5 @@
 type markOthersAbsentPayload {
-  changed: Int
+  changed: [ID!]
 }
 
 extend type Mutation {

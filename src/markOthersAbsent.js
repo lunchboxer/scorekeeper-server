@@ -15,7 +15,8 @@ export default async event => {
     students.forEach(student => {
       markAbsent(api, student, sessionId)
     })
-    return { data: { changed: students.length } }
+    const studentIds = students.map(student => student.id)
+    return { data: { changed: studentIds } }
   } catch (e) {
     console.log(e)
     return {
